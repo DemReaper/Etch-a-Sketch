@@ -1,6 +1,7 @@
 "use strict";
 
 const canvas = document.getElementById("canvas");
+const resetButton = document.getElementById("reset-button");
 const canvasWidth = canvas.clientWidth;
 const canvasHeight = canvas.clientHeight;
 
@@ -37,5 +38,31 @@ function hoverEffect() {
   }
 }
 
+function reset() {
+  let userCellSize = prompt("Squares per side? (8, 16, 32, or 64)");
+
+  // cellSize affects logic in "createGrid" function
+  switch (userCellSize) {
+    case "8":
+      cellSize = 64;
+      break;
+    case "16":
+      cellSize = 32;
+      break;
+    case "32":
+      cellSize = 16;
+      break;
+    case "64":
+      cellSize = 8;
+      break;
+  }
+
+  canvas.innerHTML = "";
+  createGrid(cellSize);
+  hoverEffect();
+}
+
 createGrid(cellSize);
 hoverEffect();
+
+resetButton.addEventListener("click", reset);
