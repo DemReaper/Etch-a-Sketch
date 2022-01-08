@@ -4,8 +4,17 @@ const canvas = document.getElementById("canvas");
 const resetButton = document.getElementById("reset-button");
 const canvasWidth = canvas.clientWidth;
 const canvasHeight = canvas.clientHeight;
+const workingSize = document.querySelector(".working-size");
 
 let cellSize = 32;
+
+const canvasSizes = document.getElementsByClassName("canvas-btn");
+for (let i = 0; i < canvasSizes.length; i++) {
+  canvasSizes[i].addEventListener("click", function () {
+    cellSize = canvasWidth / Number(this.textContent);
+    console.log(cellSize);
+  });
+}
 
 function setCellSize(size) {
   const cells = document.getElementsByClassName("cell");
@@ -16,9 +25,16 @@ function setCellSize(size) {
   }
 }
 
+// generate ranmdom # between 0 and 256
+const random256 = () => {
+  return Math.floor(Math.random() * 257);
+};
+
 function createGrid(size) {
   let rowCount = canvasWidth / size;
   let colCount = canvasHeight / size;
+
+  workingSize.textContent = "Working size: " + rowCount + " x " + colCount;
 
   for (let i = 0; i < colCount; i++) {
     for (let i = 0; i < rowCount; i++) {
@@ -31,8 +47,21 @@ function createGrid(size) {
   setCellSize(size);
 }
 
+function randomRGBeffect() {
+  const cells = document.getElementsByClassName("cell");
+  for (let i = 0; i < cells.length; i++) {
+    let r = random256();
+    let g = random256();
+    let b = random256();
+    cells[i].addEventListener("mouseenter", function () {
+      this.style.backgroundColor = "rgb(" + r + "," + g + "," + b + ")";
+    });
+  }
+}
+
 function hoverEffect() {
   const cells = document.getElementsByClassName("cell");
+
   for (let i = 0; i < cells.length; i++) {
     cells[i].addEventListener("mouseenter", function () {
       this.classList.add("hoverColor");
@@ -41,27 +70,6 @@ function hoverEffect() {
 }
 
 function reset() {
-  let userCellSize = prompt("Squares per side? (8, 16, 32, 64 or 128)");
-
-  // cellSize affects logic in "createGrid" function
-  switch (userCellSize) {
-    case "8":
-      cellSize = 64;
-      break;
-    case "16":
-      cellSize = 32;
-      break;
-    case "32":
-      cellSize = 16;
-      break;
-    case "64":
-      cellSize = 8;
-      break;
-    case "128":
-      cellSize = 4;
-      break;
-  }
-
   canvas.innerHTML = "";
   createGrid(cellSize);
   hoverEffect();

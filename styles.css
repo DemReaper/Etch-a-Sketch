@@ -2,9 +2,27 @@ body {
   background-color: rgb(22, 22, 48);
 }
 
-#reset-button {
-  display: block;
-  margin: 0 auto 20px;
+p {
+  color: white;
+  text-transform: uppercase;
+}
+
+.wrapper {
+  width: 1000px;
+  display: flex;
+  justify-content: space-around;
+  margin: 300px auto 0;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.canvas-btn {
+  width: 150px;
+  height: 50px;
+  margin: 5px 0;
 }
 
 #canvas {
@@ -15,7 +33,6 @@ body {
 }
 
 .cell {
-  background-color: darkcyan;
   float: left;
 }
 
