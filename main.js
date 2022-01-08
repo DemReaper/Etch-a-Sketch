@@ -6,6 +6,8 @@ const canvasWidth = canvas.clientWidth;
 const canvasHeight = canvas.clientHeight;
 const workingSize = document.querySelector(".working-size");
 
+let colorEffect = "singleColor";
+
 let cellSize = 32;
 
 const canvasSizes = document.getElementsByClassName("canvas-btn");
@@ -13,6 +15,17 @@ for (let i = 0; i < canvasSizes.length; i++) {
   canvasSizes[i].addEventListener("click", function () {
     cellSize = canvasWidth / Number(this.textContent);
     console.log(cellSize);
+  });
+}
+
+const colorButtons = document.getElementsByClassName("color-btn");
+for (let i = 0; i < colorButtons.length; i++) {
+  colorButtons[i].addEventListener("click", function () {
+    if (this.innerHTML === "Black") {
+      colorEffect = "singleColor";
+    } else if (this.innerHTML === "Random RGB") {
+      colorEffect = "randomRGB";
+    }
   });
 }
 
@@ -59,13 +72,24 @@ function randomRGBeffect() {
   }
 }
 
-function hoverEffect() {
+function singleColorEffect() {
   const cells = document.getElementsByClassName("cell");
 
   for (let i = 0; i < cells.length; i++) {
     cells[i].addEventListener("mouseenter", function () {
       this.classList.add("hoverColor");
     });
+  }
+}
+
+function hoverEffect() {
+  switch (colorEffect) {
+    case "singleColor":
+      singleColorEffect();
+      break;
+    case "randomRGB":
+      randomRGBeffect();
+      break;
   }
 }
 

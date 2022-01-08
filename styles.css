@@ -19,9 +19,10 @@ p {
   flex-direction: column;
 }
 
-.canvas-btn {
+.canvas-btn,
+.color-btn {
   width: 150px;
-  height: 50px;
+  height: 45px;
   margin: 5px 0;
 }
 
