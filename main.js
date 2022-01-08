@@ -22,7 +22,9 @@ function createGrid(size) {
 
   for (let i = 0; i < colCount; i++) {
     for (let i = 0; i < rowCount; i++) {
-      canvas.innerHTML += '<div class="cell"></div>';
+      let testCell = document.createElement("div");
+      testCell.classList.add("cell");
+      canvas.appendChild(testCell);
     }
   }
 
@@ -39,7 +41,7 @@ function hoverEffect() {
 }
 
 function reset() {
-  let userCellSize = prompt("Squares per side? (8, 16, 32, or 64)");
+  let userCellSize = prompt("Squares per side? (8, 16, 32, 64 or 128)");
 
   // cellSize affects logic in "createGrid" function
   switch (userCellSize) {
@@ -54,6 +56,9 @@ function reset() {
       break;
     case "64":
       cellSize = 8;
+      break;
+    case "128":
+      cellSize = 4;
       break;
   }
 
