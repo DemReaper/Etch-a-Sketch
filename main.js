@@ -27,4 +27,15 @@ function createGrid(size) {
 
   setCellSize(size);
 }
+
+function hoverEffect() {
+  const cells = document.getElementsByClassName("cell");
+  for (let i = 0; i < cells.length; i++) {
+    cells[i].addEventListener("mouseenter", function () {
+      this.classList.add("hoverColor");
+    });
+  }
+}
+
 createGrid(cellSize);
+hoverEffect();
