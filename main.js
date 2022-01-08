@@ -5,16 +5,19 @@ const resetButton = document.getElementById("reset-button");
 const canvasWidth = canvas.clientWidth;
 const canvasHeight = canvas.clientHeight;
 const workingSize = document.querySelector(".working-size");
+const defaultCellSize = 32;
 
 let colorEffect = "singleColor";
 
-let cellSize = 32;
+let cellSize = defaultCellSize;
 
-const canvasSizes = document.getElementsByClassName("canvas-btn");
-for (let i = 0; i < canvasSizes.length; i++) {
-  canvasSizes[i].addEventListener("click", function () {
+// ===== BUTTON CLICKS =====
+const canvasSizeBtns = document.getElementsByClassName("canvas-btn");
+for (let i = 0; i < canvasSizeBtns.length; i++) {
+  canvasSizeBtns[i].addEventListener("click", function () {
     cellSize = canvasWidth / Number(this.textContent);
-    console.log(cellSize);
+    removeClassFromButtons(canvasSizeBtns);
+    this.classList.add("selected");
   });
 }
 
@@ -23,11 +26,19 @@ for (let i = 0; i < colorButtons.length; i++) {
   colorButtons[i].addEventListener("click", function () {
     if (this.innerHTML === "Black") {
       colorEffect = "singleColor";
+      removeClassFromButtons(colorButtons);
+      this.classList.add("selected");
     } else if (this.innerHTML === "Random RGB") {
       colorEffect = "randomRGB";
+      removeClassFromButtons(colorButtons);
+      this.classList.add("selected");
     }
   });
 }
+
+resetButton.addEventListener("click", reset);
+
+// ===== FUNCTIONS =====
 
 function setCellSize(size) {
   const cells = document.getElementsByClassName("cell");
@@ -93,13 +104,21 @@ function hoverEffect() {
   }
 }
 
+function removeClassFromButtons(btnArray) {
+  for (let i = 0; i < btnArray.length; i++) {
+    btnArray[i].classList.remove("selected");
+  }
+}
+
 function reset() {
   canvas.innerHTML = "";
   createGrid(cellSize);
   hoverEffect();
+
+  removeClassFromButtons(canvasSizeBtns);
+  removeClassFromButtons(colorButtons);
 }
 
+// ===== LOGIC =====
 createGrid(cellSize);
 hoverEffect();
-
-resetButton.addEventListener("click", reset);
